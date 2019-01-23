@@ -1,6 +1,5 @@
 package com.msa.broadcasterquizapp;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,18 +24,16 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView questionText;
     private Button optbtn1, optbtn2, optbtn3, optbtn4;
-    private Button startbtn, showbtn, nextbtn, endbtn, videobtn;
+    private Button startbtn, showbtn, nextbtn, endbtn;
     private DatabaseReference mQuizStatusReference;
     private DatabaseReference mQuizReference;
     private DatabaseReference mQuestionsReference;
-    private String liveStatus, showQuestion,video;
+    private String liveStatus, showQuestion;
     private String currentQuesno = "1";
     private List<Question> questionList;
     private ValueEventListener mQuizStatusListner;
     private ValueEventListener mQuizListener;
     private ValueEventListener mQuestionListner;
-    private VideoView vidView ;
-    private Uri uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/quizapp-36880.appspot.com/o/Phree%20-%20Make%20the%20world%20your%20paper.mp4?alt=media&token=e2943cc3-554a-4cd2-a23e-d38256aa28ed");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
         showbtn = (Button) findViewById(R.id.showque_btn);
         nextbtn = (Button) findViewById(R.id.nextque_btn);
         endbtn = (Button) findViewById(R.id.end_btn);
-        videobtn = (Button) findViewById(R.id.video_btn);
-        vidView = (VideoView)findViewById(R.id.video);
         mQuizStatusReference = FirebaseDatabase.getInstance().getReference().child("QuizStatus");
         mQuestionsReference = FirebaseDatabase.getInstance().getReference().child("Questions");
         mQuizReference = FirebaseDatabase.getInstance().getReference().child("Quizzes");
@@ -89,19 +83,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void attachOnClickListner() {
-
-        //To Start the video
-        videobtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                video = "1";
-                vidView .setVideoURI(uri);
-                vidView.requestFocus();
-                vidView.start();
-                updateChange();
-            }
-        });
-
         //To Start the Quiz
         startbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateChange() {
-        QuizStatus status = new QuizStatus(liveStatus, showQuestion, currentQuesno,video);
+        QuizStatus status = new QuizStatus(liveStatus, showQuestion, currentQuesno);
         mQuizStatusReference.setValue(status);
     }
 
