@@ -58,6 +58,10 @@
           <option name="url" value="https://github.com/ravi8x/Android-DataBindng-RecyclerView" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/Qualityk1nG/BrandMore" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="$USER_HOME$/Desktop" />
